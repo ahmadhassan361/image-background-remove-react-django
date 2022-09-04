@@ -1,0 +1,33 @@
+.footer-nav-link{
+    cursor: pointer;
+    transition: .3s ease-in-out;
+}
+.footer-nav-link:hover{
+    color: #454545;
+}
+.title-footer{
+    font-size: 60px;
+    font-weight: bolder;
+    color: #454545;
+}
+@media screen and (max-width:1200px) {
+    .title-footer{
+        font-size: 50px;
+        font-weight: bolder;
+        color: #454545;
+    }
+}
+@media screen and (max-width:990px) {
+    .title-footer{
+        font-size: 40px;
+        font-weight: bolder;
+        color: #454545;
+    }
+}
+@media screen and (max-width: 600px) {
+    .title-footer{
+        font-size: 20px;
+        font-weight: bolder;
+        color: #454545;
+    }
+}
