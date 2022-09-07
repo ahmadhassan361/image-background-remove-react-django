@@ -14,8 +14,27 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-
+from django.urls import path,re_path
+from background_remover import views
+from django.conf.urls.static import static
+from django.views.static import serve
+from django.views.decorators.csrf import csrf_exempt
+from accounts import views as aviews
+from django.conf import settings
 urlpatterns = [
+    re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
+    re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
     path('admin/', admin.site.urls),
-]
+    path('', views.index),
+    path('api/login/', aviews.CutomAuthToken.as_view(), name='gettoken'),
+    path('api/createuser/', csrf_exempt(aviews.CreateUserView.as_view())),
+    path('api/change-password/', csrf_exempt(aviews.ChangePasswordView.as_view())),
+    path('api/change-info/', csrf_exempt(aviews.ChangeUserInfoView.as_view())),
+    path('api/change-profile-image/', csrf_exempt(aviews.ChangeProfileImageView.as_view())),
+
+    path('api/remove-background/', csrf_exempt(views.removeImageBackground)),
+
+    
+
+]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

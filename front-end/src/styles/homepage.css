@@ -1,10 +1,110 @@
+button
+{
+    background-color: #f95615!important;
+    border: none!important;
+}
+button:focus
+{
+    box-shadow: none!important;
+}
+.nav-link:focus, .nav-link:hover
+{
+    color: #F95615!important;
+}
+.navbar-toggler 
+{
+    background-color: #fff!important;
+    border: 2px solid #585252!important;
+}
+.br-title-section
+{
+    padding: 81px 17px;
+    text-align: center;
+    background-color: #f9561538;
+}
+.br-title-section h1
+{
+    font-weight: 700;
+    color: #3c5e78;
+}
+.br-title-section span
+{
+    color: #f95615;
+}
+.main-img 
+{
+    width: 457px;
+}
+.br-color
+{
+    background-color: #f95615!important;
+    border: none;
+}
+.sign-up-btn
+{
+    color: #fff;
+}
+.br-border
+{
+    border: 3px dotted #f95615;
+}
+.br-intro
+{
+    text-align: center;
+    margin: 27px auto;
+}
+
+.br-txt-spacing
+{
+    line-height: 28px;
+}
+.br-txt-gap
+{
+    line-height: 34px;
+}
+.bottom-space
+{
+    padding-bottom: 18px;
+}
+.br-container
+{
+    background-color: #f9561538;
+    padding: 28px 13px;
+}
+.br-image-shrink
+{
+    width: 100%;
+}
+.title-spacing
+{
+    line-height: 45px;
+}
+/**** Start Testimonils ****/
+.testimonial-box
+{
+    position: relative;
+}
+.br-rating
+{
+    position: absolute;
+    right: 14px;
+    top: 9px;
+    color: #f95614;
+}
+.avatar-img
+{
+    border: 3px solid #F95614;
+    width: 80px;
+    height: 80px;
+}
+/**** End Testimonials ****/
 .title{
     font-size: 60px;
     font-weight: bolder;
     color: #454545;
 }
 .small-title{
-    font-size: 50px;
+    font-size: 33px;
     font-weight: bolder;
     color: #454545;
 }
@@ -12,7 +112,7 @@
     height: 7px; background: rgb(249, 86, 21); position: absolute; left: 0px; bottom: -4px; right: 0px;
 }
 .card-upload{
-    width: 75%;
+    width: 98%;
 }
 .small-note-text{
     font-size: 70%; opacity: 0.5;
@@ -28,9 +128,9 @@
     
 }
 .active-second-nav{
-    color: #0f70e6;
-    border-bottom-color: #0f70e6;
-    border-bottom: 4px solid #0f70e6    ;
+    color: #F95615;
+    border-bottom-color: #F95615;
+    border-bottom: 4px solid #F95615    ;
 }
 .bullet-style{
     font-size: 20px;
@@ -53,6 +153,60 @@
 .bullet-width{
     width: 65%;
 }
+.main-block{
+    border-radius: 10px;
+    width: 800px;
+    height: 533px;
+    background-color: #e5e5f7;
+opacity: 0.8;
+background-image:  repeating-linear-gradient(45deg, #cdcdd0 25%, transparent 25%, transparent 75%, #cdcdd0 75%, #cdcdd0), repeating-linear-gradient(45deg, #cdcdd0 25%, #e5e5f7 25%, #e5e5f7 75%, #cdcdd0 75%, #cdcdd0);
+background-position: 0 0, 10px 10px;
+background-size: 20px 20px;
+}
+.Block{
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    width: 800px;
+    height: 533px;
+    background-repeat: no-repeat;
+    /* background-attachment: fixed; */
+    background-size: 800px 533px;
+    background-color: transparent;
+    /* transition: .1s ease-in-out; */
+}
+
+#Resizable{
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    border: 1px solid white;
+    border-right: 2px solid white; 
+    width: 400px;
+    height: 533px;
+    max-width: 800px;
+    background-repeat: no-repeat;
+    /* background-attachment: fixed; */
+    background-size: 800px 533px;
+    min-height: 50px;
+    /* transition: .1s ease-in-out; */
+
+
+}
+#Draggable{
+    background: rgba(256, 256, 256, 0.7);
+    border: 2px solid white;
+    cursor: e-resize;
+    height: 40px;
+    z-index: 2;
+    margin-left: -20px;
+    width: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    /* transition: .1s ease-in-out; */
+
+    
+}
 @media screen and (max-width:1200px) {
     .title{
         font-size: 45px;
@@ -70,6 +224,39 @@
     .bullet-width{
         width: 80%;
     }
+
+    .main-block{
+        width: 720px;
+        height: 480px;
+        background-color: #e5e5f7;
+    opacity: 0.8;
+    background-image:  repeating-linear-gradient(45deg, #cdcdd0 25%, transparent 25%, transparent 75%, #cdcdd0 75%, #cdcdd0), repeating-linear-gradient(45deg, #cdcdd0 25%, #e5e5f7 25%, #e5e5f7 75%, #cdcdd0 75%, #cdcdd0);
+    background-position: 0 0, 10px 10px;
+    background-size: 20px 20px;
+    }
+    .Block{
+        display: flex;
+        align-items: center;
+        width: 720px;
+        height: 480px;
+        background-repeat: no-repeat;
+        /* background-attachment: fixed; */
+        background-size: 720px 480px;
+        background-color: transparent;
+    }
+    
+    #Resizable{
+        border: 1px solid white;
+        border-right: 2px solid white; 
+        width: 360px;
+        height: 480px;
+        max-width: 720px;
+        background-repeat: no-repeat;
+        /* background-attachment: fixed; */
+        background-size: 720px 480px;
+        min-height: 50px;
+    
+    }
 }
 @media screen and (max-width:990px) {
     .title{
@@ -82,6 +269,33 @@
     }
     .bullet-width{
         width: 85%;
+    }
+    .main-block{
+        width: 640px;
+        height: 427px;
+    }
+    .Block{
+        display: flex;
+        align-items: center;
+        width: 640px;
+        height: 427px;
+        background-repeat: no-repeat;
+        /* background-attachment: fixed; */
+        background-size: 640px 427px;
+        background-color: transparent;
+    }
+    
+    #Resizable{
+        border: 1px solid white;
+        border-right: 2px solid white; 
+        width: 320px;
+        height: 427px;
+        max-width: 640px;
+        background-repeat: no-repeat;
+        /* background-attachment: fixed; */
+        background-size: 640px 427px;;
+        min-height: 50px;
+    
     }
 }
 @media screen and (max-width: 600px) {
@@ -101,5 +315,49 @@
     .small-title{
         text-align: center;
         
+    }
+    .br-title-section
+{
+    padding: 20px 17px;
+    text-align: center;
+    background-color: #f9561538;
+}
+
+}
+@media (max-width: 767px) {
+    .br-rating
+    {
+        position: relative;
+        left: 0;
+        margin: 0 auto 15px;
+    }
+}
+@media screen and  (max-width: 450px) {
+    .main-block{
+        width: 320px;
+        height: 212px;
+    }
+    .Block{
+        display: flex;
+        align-items: center;
+        width: 320px;
+        height: 212px;
+        background-repeat: no-repeat;
+        /* background-attachment: fixed; */
+        background-size: 320px 212px;
+        background-color: transparent;
+    }
+    
+    #Resizable{
+        border: 1px solid white;
+        border-right: 2px solid white; 
+        width: 160px;
+        height: 212px;
+        max-width: 320px;
+        background-repeat: no-repeat;
+        /* background-attachment: fixed; */
+        background-size: 320px 212px;
+        min-height: 50px;
+    
     }
 }

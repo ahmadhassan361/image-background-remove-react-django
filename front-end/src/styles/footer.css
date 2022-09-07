@@ -1,9 +1,44 @@
+.footer
+{
+    background-color: #3C5E78;
+    position: relative;
+}
+.follow-us
+{
+    background-color: #F95615;
+    padding: 10px 30px;
+    color: #fff;
+    position: absolute;
+    transform: translateX(-50%);
+    left: 50%;
+    top: -44px;
+}
+.br-footer-menu
+{
+    display: flex;
+    justify-content: center;
+}
+.br-footer-menu ul
+{
+    list-style-type: none;
+}
+.br-footer-menu ul li 
+{
+    display: inline-block;
+    padding: 14px 13px;
+}
+.br-social-links
+{
+    display: flex;
+    justify-content: center;
+    padding: 20px 20px 8px;
+}
 .footer-nav-link{
     cursor: pointer;
     transition: .3s ease-in-out;
 }
 .footer-nav-link:hover{
-    color: #454545;
+    color: #f95615;
 }
 .title-footer{
     font-size: 60px;

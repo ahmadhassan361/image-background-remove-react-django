@@ -13,25 +13,22 @@ export const Navbar = () => {
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
         <li className="nav-item">
-          <h3 className="nav-link " aria-current="page" >Remove Background</h3>
+          <h3 className="nav-link" >Home</h3>
         </li>
         <li className="nav-item">
-          <h3 className="nav-link" >AboutUs</h3>
+          <h3 className="nav-link" >About us</h3>
         </li>
         <li className="nav-item">
-          <h3 className="nav-link" >Contact Us</h3>
+          <h3 className="nav-link" >Contact us</h3>
         </li>
         <li className="nav-item">
-          <h3 className="nav-link" >Privacy Policy</h3>
+          <h3 className="nav-link " aria-current="page" >More Tools</h3>
         </li>
-        
-        
-        
       </ul>
       <div className='d-flex justify-content-center'>
             
             <h3 className='nav-link nav-link-btn  rounded-5 p-3 mx-2'>Login</h3>
-            <h3 className='nav-link nav-link-btn  rounded-5 py-3 px-4'>SignUp</h3>
+            <h3 className='sign-up-btn br-color nav-link nav-link-btn  rounded-5 py-3 px-4'>Sign Up</h3>
       </div>
       
     </div>
