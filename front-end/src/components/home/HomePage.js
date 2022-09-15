@@ -145,7 +145,7 @@ export const HomePage = ({login,user}) => {
     
     <div  {...getRootProps()}>
       
-      {showEditModal?<EditModal imageUrl={responseImg.image} dimen={responseImg.dimensions} setShowModal={setShowModal}/>:<></>}
+      {showEditModal?<EditModal imageUrl={responseImg.image} dimen={responseImg.dimensions} setShowModal={setShowModal} name={responseImg.name}/>:<></>}
       {/* {showEditModal?<Modal imageUrl={responseImg.image}/>:<></>} */}
       <input {...getInputProps()} ref={inputFile} />
       <div id="highlight-div" className={isDragActive?"drop-div p-5":"drop-div p-5 d-none"}>

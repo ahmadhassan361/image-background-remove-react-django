@@ -178,3 +178,5 @@ def contact_us(request):
                     'message': 'Your request submitted successfully',
                 }
         return Response(response)
+
+

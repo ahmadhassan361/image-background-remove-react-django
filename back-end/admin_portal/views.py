@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from background_remover.models import ImageModel
 from django.db.models import Count
 from django.db.models.functions import TruncDay
-from accounts.models import ProfileModel
+from accounts.models import ContactUsModel, ProfileModel
 # Create your views here.
 def dashboard(request):
     if not 'saved' in request.session or not request.session['saved']:
@@ -115,6 +115,14 @@ def all_users(request):
     users = ProfileModel.objects.select_related().order_by('-id').all()
     return render(request,'portal/all-user.html',{
         'overview':True,
+        'users':users
+    })
+def contact_users(request):
+    if not 'saved' in request.session or not request.session['saved']:
+        return redirect('admin-login')
+    users = ContactUsModel.objects.order_by('-id').all()
+    return render(request,'portal/all-contact.html',{
+        'contact':True,
         'users':users
     })
 

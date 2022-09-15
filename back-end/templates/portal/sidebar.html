@@ -54,9 +54,16 @@
     </div>
     
     <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item {% if contact %}active{% endif %}">
+        <a class="nav-link collapsed" href="{% url 'contact-us' %}">
+            <i class="far fa-address-book"></i>
+            <span>Contact Us</span>
+        </a>
+    </li>
+    <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item {% if system %}active{% endif %}">
         <a class="nav-link collapsed" href="#">
-            <i class="fas fa-fw fa-folder"></i>
+            <i class="fas fa-folder"></i>
             <span>Clear Files Time</span>
         </a>
     </li>

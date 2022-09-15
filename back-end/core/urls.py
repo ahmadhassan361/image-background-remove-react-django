@@ -42,6 +42,7 @@ urlpatterns = [
     path('admin-portal/', adminViews.dashboard, name='admin-dashboard'),
     path('admin-portal/user-overview', adminViews.user_overview, name='user-overview'),
     path('admin-portal/all-users', adminViews.all_users, name='all-users'),
+    path('admin-portal/all-contact-us', adminViews.contact_users, name='contact-us'),
     path('admin-portal/admin-login', adminViews.admin_login, name='admin-login'),
     path('admin-portal/logout', adminViews.admin_logout, name='logout'),
 
