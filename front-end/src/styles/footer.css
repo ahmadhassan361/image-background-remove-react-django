@@ -36,6 +36,7 @@
 .footer-nav-link{
     cursor: pointer;
     transition: .3s ease-in-out;
+    color: white;
 }
 .footer-nav-link:hover{
     color: #f95615;

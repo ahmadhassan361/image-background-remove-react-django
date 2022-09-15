@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import "../../styles/homepage.css";
 import FeatureImage from "../../assets/background-remover.gif";
 import ArrowRight from "../../assets/arrow-right.png";
@@ -28,9 +28,28 @@ import CartoonAfter from "../../assets/creative/objects_after_removal.png";
 import CarBefore from "../../assets/creative/vehicule_before_removal.jpg";
 import CarAfter from "../../assets/creative/vehicule_after_removal.png";
 
-export const HomePage = () => {
+import {useDropzone} from 'react-dropzone'
+import { uploadImageForRemoveBackground } from "../../service/service";
+import ReactLoading from 'react-loading';
+import { EditModal } from "../widgets/EditModal";
+
+import Modal from "../widgets/Modal";
+export const HomePage = ({login,user}) => {
+  
+  
+  const inputFile = useRef(null)
   const [initialPos, setInitialPos] = React.useState(null);
   const [initialSize, setInitialSize] = React.useState(null);
+  const [original, setOriginal] = React.useState(true);
+  const [pictureView, setPictureView] = useState(PeopleRemovalImg);
+  const [tab, setTab] = useState(0);
+  const [image,setImage] = useState(null);
+  const [responseImg,setResponseImage] = useState(null);
+  const [loading,setLoading] = useState(false);
+  const [showCard,setShowCard] = useState(false);
+  const [showEditModal,setShowModal] = useState(false);
+
+
 
   const initial = (e) => {
     let resizable = document.getElementById("Resizable");
@@ -45,8 +64,8 @@ export const HomePage = () => {
       parseInt(initialSize) + parseInt(e.clientX - initialPos)
     }px`;
   };
-  const [pictureView, setPictureView] = useState(PeopleRemovalImg);
-  const [tab, setTab] = useState(0);
+  
+
   const handle_image_tab = (i) => {
     setTab(i);
     if (i === 0) {
@@ -57,20 +76,172 @@ export const HomePage = () => {
       setPictureView(AnimalRemovalImg);
     }
   };
+  
+
+  
+  const onDrop = useCallback((acceptedFiles) => {
+    acceptedFiles.forEach((file) => {
+      console.log(file)
+      setShowCard(true);
+      setLoading(true);
+      setImage(URL.createObjectURL(file));
+      handleImageBackgroundRemove(file);
+
+    })
+    
+  }, [])
+  const {getRootProps, getInputProps,isDragActive,fileRejections} = useDropzone({onDrop,noClick: true,accept: {
+    'image/jpeg': [],
+    'image/png': [],
+    'image/jpg': [],
+    
+  },
+  maxFiles:1
+})
+
+// const showModal = () => {
+//   setShowModal(true);
+//   console.log("first")
+//   console.log(showEditModal)
+// }
+
+  const onButtonClick = () => {
+    // `current` points to the mounted file input element
+   inputFile.current.click();
+  };
+
+
+  async function  handleImageBackgroundRemove(file) {
+    const response =await uploadImageForRemoveBackground(file,login,user);
+    console.log(response);
+    setResponseImage(response);
+    setOriginal(false);
+    setLoading(false)
+    
+    
+  }
+
+  const download = e => {
+    fetch(responseImg.image, {
+      method: "GET",
+      headers: {}
+    })
+      .then(response => {
+        response.arrayBuffer().then(function(buffer) {
+          const url = window.URL.createObjectURL(new Blob([buffer]));
+          const link = document.createElement("a");
+          link.href = url;
+          link.setAttribute("download", responseImg.name); //or any other extension
+          document.body.appendChild(link);
+          link.click();
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   return (
-    <>
+    
+    <div  {...getRootProps()}>
+      
+      {showEditModal?<EditModal imageUrl={responseImg.image} dimen={responseImg.dimensions} setShowModal={setShowModal}/>:<></>}
+      {/* {showEditModal?<Modal imageUrl={responseImg.image}/>:<></>} */}
+      <input {...getInputProps()} ref={inputFile} />
+      <div id="highlight-div" className={isDragActive?"drop-div p-5":"drop-div p-5 d-none"}>
+        <div className="under-drop-div">
+          Drop image anywhere
+        </div>
+      </div>
+      {
+        showCard?
+        <div className="container p-2 p-lg-5" >
+        {loading? 
+        <div className="shadow w-100 text-center p-5 bg-light rounded" >
+          
+          
+          <h5 className="shimmer">Please Wait! We Are Working On It</h5>
+          <div className="d-flex justify-content-center text-center" >
+          <ReactLoading type={"spin"} color={"#f95615"} height={40} width={40} />
+          </div>
+        </div>:
+         
+         <div className="shadow   px-3 py-3 bg-light rounded">
+           {/* Header */}
+           <div className="d-flex col-12 justify-content-between">
+             <ul className="nav justify-content-start">
+               <li className="nav-item">
+                 <h6
+                   className={
+                     original
+                       ? "nav-link second-nav active-second-nav"
+                       : "nav-link second-nav"
+                   }
+                   aria-current="page"
+                   onClick={(event) => setOriginal(true)}
+                 >
+                   Original
+                 </h6>
+               </li>
+               <li className="nav-item">
+                 <h6
+                   className={
+                     !original
+                       ? "nav-link second-nav active-second-nav"
+                       : "nav-link second-nav"
+                   }
+                   onClick={(event) => setOriginal(false)}
+                 >
+                   Removed Background
+                 </h6>
+               </li>
+             </ul>
+             <h3 style={{'cursor':'pointer','background':'transparent'}} onClick={(e)=>setShowCard(false)}><i className="fa-solid fa-xmark"></i></h3>
+           </div>
+           <div className="row mt-3 ">
+             {
+               original?<div className="col-md-8 text-center ">
+               <img  src={image} className="img-fluid preview-img " alt="" />
+               </div>:
+               <div className="col-md-8  text-center ">
+                
+                 <img id="preview-img" src={responseImg.image} className="img-fluid removed-background-div preview-img" alt="" />
+
+               </div>
+             }
+             {responseImg !== null ?
+             <div className="col-md-4 col-12 pt-5  text-center px-3 px-lg-5">
+              
+             <button   onClick={e => download(e)}  className="rounded-5 w-100  mt-4 btn mx-auto  btn-primary px-4  btn-lg">
+              <i className="fas fa-download" data-v-233d445a=""></i>{" "}
+              <strong>Download Image </strong>
+            </button>
+            <small>Image Resolution {responseImg.dimensions.width} X {responseImg.dimensions.height}</small>
+          <button onClick={(e)=>setShowModal(true)} className="rounded-5 w-100 mt-5 btn mx-auto  btn-outline-primary px-4  btn-lg">
+              <i className="fas fa-edit" data-v-233d445a=""></i>{" "}
+              <strong>Edit Image</strong>
+            </button>
+          </div>:<></>
+
+             }
+           </div>
+           
+         </div>
+       }
+       </div>:
+        <>
+      
       <div className="br-title-section">
         <h1>
           Online Background <span>Remover</span>
         </h1>
       </div>
       <div className="container mt-5 px-lg-2 " style={{ minheight: "80vh" }}>
-        <div className="row px-lg-2">
-          <div className="col-md-6 ">
+        <div className="row px-lg-2 justify-content-center">
+          <div className="col-md-5 text-center">
             <img
               src={FeatureImage}
-              className="main-img img-fluid border mt-3"
+              className="main-img img-fluid border mt-3 "
               alt="remove background animation"
             />
           </div>
@@ -81,10 +252,10 @@ export const HomePage = () => {
               alt=""
             />
           </div>
-          <div className="col-md-5  align-items-center px-lg-5 mt-lg-5 pt-lg-5">
-            <div className="br-border d-none d-md-block pt-3  pt-lg-5 card-upload  text-center">
+          <div className="col-md-5   align-items-center px-lg-5 mt-lg-5 pt-lg-5">
+            <div className="br-border d-none d-md-block pt-3  pt-lg-5 card-upload rounded text-center">
               <div className="mt-md-5 mb-md-3 "></div>
-              <button className="br-color mt-2 btn mx-auto  btn-primary  d-lg-block btn-lg">
+              <button onClick={onButtonClick} className="br-color mt-2 btn mx-auto  btn-primary  d-lg-block btn-lg">
                 <i className="fas fa-upload" data-v-233d445a=""></i>{" "}
                 <strong>Upload Image</strong>
               </button>
@@ -92,7 +263,7 @@ export const HomePage = () => {
               <div className="mt-3 bg-light w-100 p-2">
                 <small className="text-secondary">
                   Paste image or{" "}
-                  <span>
+                  <span  style={{cursor:'pointer'}}>
                     <u>URL</u>
                   </span>
                   <span
@@ -117,7 +288,7 @@ export const HomePage = () => {
                 className="img-fluid arrow-img mx-1"
                 alt=""
               />
-              <button className="rounded-5  mt-2 btn mx-auto  btn-primary px-4 d-lg-block btn-lg">
+              <button onClick={onButtonClick} className="rounded-5  mt-2 btn mx-auto  btn-primary px-4 d-lg-block btn-lg">
                 <i className="fas fa-upload" data-v-233d445a=""></i>{" "}
                 <strong>Upload Image</strong>
               </button>
@@ -638,6 +809,11 @@ export const HomePage = () => {
         <TestimonialSlider />
       </div>
       <hr className="my-5 text-light" />
-    </>
+      </>
+      }
+
+      
+    </div>
+    
   );
 };

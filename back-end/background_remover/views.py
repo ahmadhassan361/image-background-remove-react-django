@@ -1,8 +1,9 @@
+import imp
 from accounts.models import ProfileModel
 from django.shortcuts import render
 from rembg import remove
 from PIL import Image
-from .models import ImageModel
+from .models import BackgroundImage, ImageModel
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -10,6 +11,7 @@ from rest_framework.permissions import AllowAny
 from django.contrib.sites.models import Site
 from rest_framework.decorators import api_view, permission_classes
 from django.contrib.auth.models import User,AnonymousUser
+from .serializers import BackgroundImageSerializer
 # Create your views here.
 
 
@@ -64,12 +66,32 @@ def removeImageBackground(request):
             else:
                 image_model.user = "0"
             image_model.save()
+            img = Image.open(output_path)
+  
+            # fetching the dimensions
+            wid, hgt = img.size
             return Response({
                 'status': status.HTTP_200_OK,
                 'message': 'background removed successfully',
-                'image': 'http://{}/{}'.format(domain, image_model.output_image)
+                'image': 'http://{}/{}'.format(domain, image_model.output_image),
+                'name':'{}-{}bg-remover-preview.png'.format(
+                image_model.id, image_name[0]),
+                'dimensions' : {
+                    'width':wid,
+                    'height':hgt
+                }
             })
         except:
             return Response({'status': status.HTTP_400_BAD_REQUEST,
                              'message': 'oops! Something went wrong',
                              'image': ''})
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def backgroundImages(request):
+    query = BackgroundImage.objects.order_by('-id').all()
+    query_serialized = BackgroundImageSerializer(query,many=True)
+
+    return Response({'backgroundImages':query_serialized.data})
+
+

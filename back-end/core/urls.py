@@ -20,6 +20,7 @@ from django.conf.urls.static import static
 from django.views.static import serve
 from django.views.decorators.csrf import csrf_exempt
 from accounts import views as aviews
+from admin_portal import views as adminViews
 from django.conf import settings
 urlpatterns = [
     re_path(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
@@ -31,8 +32,19 @@ urlpatterns = [
     path('api/change-password/', csrf_exempt(aviews.ChangePasswordView.as_view())),
     path('api/change-info/', csrf_exempt(aviews.ChangeUserInfoView.as_view())),
     path('api/change-profile-image/', csrf_exempt(aviews.ChangeProfileImageView.as_view())),
-
     path('api/remove-background/', csrf_exempt(views.removeImageBackground)),
+    path('api/background-images/', views.backgroundImages),
+    path('api/recaptcha/', csrf_exempt(aviews.recaptcha)),
+    path('api/contact-us/', csrf_exempt(aviews.contact_us)),
+
+
+    # Admin Panel
+    path('admin-portal/', adminViews.dashboard, name='admin-dashboard'),
+    path('admin-portal/user-overview', adminViews.user_overview, name='user-overview'),
+    path('admin-portal/all-users', adminViews.all_users, name='all-users'),
+    path('admin-portal/admin-login', adminViews.admin_login, name='admin-login'),
+    path('admin-portal/logout', adminViews.admin_logout, name='logout'),
+
 
     
 

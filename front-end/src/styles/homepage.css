@@ -1,9 +1,21 @@
-button
+.container{
+    transition: .2s ease-in-out;
+}
+.btn-primary
 {
     background-color: #f95615!important;
     border: none!important;
 }
-button:focus
+.btn-outline-primary
+{
+    background-color: transparent;
+    color: #f95615;
+    border: 1px solid #f95615 !important;
+}
+.preview-img{
+    max-height: 400px;
+}
+.btn-primary:focus
 {
     box-shadow: none!important;
 }
@@ -18,7 +30,7 @@ button:focus
 }
 .br-title-section
 {
-    padding: 81px 17px;
+    padding: 40px 17px;
     text-align: center;
     background-color: #f9561538;
 }
@@ -33,7 +45,7 @@ button:focus
 }
 .main-img 
 {
-    width: 457px;
+    width: 500px;
 }
 .br-color
 {
@@ -207,6 +219,162 @@ background-size: 20px 20px;
 
     
 }
+
+
+.drop-div{
+    scroll-behavior: auto;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(250, 139, 95, 0.7);
+    z-index: 10000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: block;
+}
+
+.under-drop-div{
+    border: 10px dotted #fff;
+    border-radius: 30px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 50px;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    justify-content: center;
+}
+.removed-background-div{
+    background-image:  repeating-linear-gradient(45deg, #cdcdd0 25%, transparent 25%, transparent 75%, #cdcdd0 75%, #cdcdd0), repeating-linear-gradient(45deg, #cdcdd0 25%, #e5e5f7 25%, #e5e5f7 75%, #cdcdd0 75%, #cdcdd0);
+    background-position: 0 0, 10px 10px;
+    background-size: 20px 20px;
+}
+
+.shimmer {
+  color: grey;
+  display:inline-block;
+  -webkit-mask:linear-gradient(-60deg,#000 30%,#0005,#000 70%) right/300% 100%;
+  background-repeat: no-repeat;
+  animation: shimmer 2.5s infinite;
+  font-size: 40px;
+}
+.edit-modal{
+    /* scroll-behavior: auto; */
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(255, 184, 155, 0.7);
+    z-index: 10000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: scroll;
+    overscroll-behavior: contain;
+}
+.under-edit-modal{
+    min-height: 85%;
+    width: 85%;
+    background-color: white;
+    border-radius: 2px;
+    
+}
+.canvas-edit-modal{
+    
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    
+    
+
+}
+/* #canvas{
+    position :absolute;
+   transform:scale(0.3125);
+   left:-500px; 
+   top:-350px; 
+} */
+#canvas-parent{
+    background-image:  repeating-linear-gradient(45deg, #cdcdd0 25%, transparent 25%, transparent 75%, #cdcdd0 75%, #cdcdd0), repeating-linear-gradient(45deg, #cdcdd0 25%, #e5e5f7 25%, #e5e5f7 75%, #cdcdd0 75%, #cdcdd0);
+    background-position: 0 0, 10px 10px;
+    background-size: 20px 20px;
+    overflow: scroll;
+    overflow-y: scroll;
+    overflow-y: scroll;
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 100%;
+    max-width: 100%;
+    border: 1px solid rgba(0,  0, 0, 0.1);
+
+    /* style={{'overflow':'scroll','width':'600px','height':'500px'}} */
+}
+.tool-tab{
+    cursor: pointer;
+    background-color: white;
+}
+.tool-tab:hover{
+    background-color: whitesmoke;
+}
+.tool-tab-active{
+    background-color: whitesmoke;
+}
+.tool-tab-content{
+    background-color: whitesmoke;
+    max-height: 500px;
+    overflow-y: scroll;
+    
+}
+@keyframes shimmer {
+  100% {-webkit-mask-position:left}
+}
+@media screen and (min-width:2000px) {
+    #canvas-parent{
+        width: 1000px;
+        height: 800px;
+    }
+    .under-edit-modal{
+        width: 70%;
+        min-height: 70%;
+    }
+}
+@media screen and (max-width:1920px) {
+    #canvas-parent{
+        width: 800px;
+        height: 600px;
+    }
+    .under-edit-modal{
+        width: 75%;
+        min-height: 75%;
+    }
+}
+@media screen and (max-width:1600px) {
+    #canvas-parent{
+        width: 700px;
+        height: 500px;
+    }
+    .under-edit-modal{
+        width: 85%;
+        min-height: 85%;
+    }
+}
+@media screen and (max-width:1400px) {
+    #canvas-parent{
+        width: 600px;
+        height: 400px;
+    }
+    .under-edit-modal{
+        width: 90%;
+        min-height: 90%;
+    }
+}
+
 @media screen and (max-width:1200px) {
     .title{
         font-size: 45px;
@@ -257,6 +425,12 @@ background-size: 20px 20px;
         min-height: 50px;
     
     }
+    .under-edit-modal{
+        height: 100%;
+        width: 100%;
+        
+    }
+    
 }
 @media screen and (max-width:990px) {
     .title{
@@ -297,6 +471,11 @@ background-size: 20px 20px;
         min-height: 50px;
     
     }
+    .under-edit-modal{
+        height: 100%;
+        width: 100%;
+        
+    }
 }
 @media screen and (max-width: 600px) {
     .title{
@@ -321,6 +500,11 @@ background-size: 20px 20px;
     padding: 20px 17px;
     text-align: center;
     background-color: #f9561538;
+}
+.under-edit-modal{
+    height: 100%;
+    width: 100%;
+    
 }
 
 }

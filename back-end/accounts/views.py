@@ -1,18 +1,18 @@
-from django.shortcuts import render
 from rest_framework import permissions
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated,AllowAny
 from rest_framework.response import Response
-from rest_framework.views import APIView
 from .serializers import ProfileSerializer, UserSerializer,ChangePasswordSerializer,ChangeUserInfoSerializer,ChangeProfileImageSerializer
 from rest_framework import generics
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.authtoken.views import ObtainAuthToken
 from django.contrib.auth.models import User
-from .models import ProfileModel
+from .models import ContactUsModel, ProfileModel
 from rest_framework import status
+import requests
+from rest_framework.decorators import api_view
 # Create your views here.
 
 #Create User , SignUp
@@ -134,13 +134,47 @@ class ChangeProfileImageView(generics.UpdateAPIView):
                 # set_password also hashes the password that the user will get
                 self.object.profile_img = request.FILES.get('profile_img')
                 self.object.save()
+                profileSerialized = ProfileSerializer(self.object,many=False)
                 response = {
                     'status': 'success',
                     'code': status.HTTP_200_OK,
                     'message': 'Image updated successfully',
-                    'data': []
+                    'image': profileSerialized.data['profile_img']
                 }
 
                 return Response(response)
 
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def recaptcha(request):
+    r = requests.post(
+      'https://www.google.com/recaptcha/api/siteverify',
+      data={
+        'secret': '6LdWvO0hAAAAAPjraroAdnSO_7DOxqZnSYSJZS_6',
+        'response': request.data['captcha_value'],
+      }
+    )
+
+    return Response({'captcha': r.json()})
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def contact_us(request):
+    if request.method == "POST":
+        name = request.POST.get('name','')
+        email = request.POST.get('email','')
+        message = request.POST.get('message','')
+        
+        contact = ContactUsModel(name=name,email=email,message=message)
+        contact.save()
+        response = {
+                    'status': 'success',
+                    'code': status.HTTP_200_OK,
+                    'message': 'Your request submitted successfully',
+                }
+        return Response(response)

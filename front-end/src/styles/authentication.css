@@ -1,0 +1,17 @@
+.tab{
+    background-color: whitesmoke;
+    color: rgb(94, 94, 94);
+    cursor: pointer;
+    transition: .2s ease-in-out;
+    border-radius: 2px;
+}
+.tab:hover{
+    background-color: white;
+    color: #F95615;
+
+}
+.tab.active{
+    border-bottom: 2px solid #F95615;
+    background-color: white;
+    color: #F95615;
+}

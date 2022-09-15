@@ -18,3 +18,10 @@ def create_auth_token(sender, instance=None,created=False,**kwargs):
     if created:
         Token.objects.create(user=instance)
         ProfileModel.objects.create(user = instance)
+
+
+class ContactUsModel(models.Model):
+    name = models.CharField(max_length=200,default='')
+    email = models.CharField(max_length=200,default='')
+    message = models.TextField(default='')
+    date_time = models.DateTimeField(auto_now_add=True)
